@@ -11,6 +11,9 @@
 #include <time.h>
 #include <string.h>
 
+// variable global para las rondas
+extern int ronda_actual;
+
 // Estructura para representar una pareja
 typedef struct {
     int id;                     // Identificador único de la pareja
@@ -39,9 +42,16 @@ typedef struct {
 int leer_participantes(FILE *f, Pareja participantes[], int *num_part);
 void generar_parejas(Pareja participantes[], FILE *new_f, int num_part);
 void mezclar_indices(int indices[], int num_part);
+int verificar_duplicados(Pareja participantes[], int num_part);
+int validar_archivo_participantes(FILE *f);
 void generar_clasificacion();
 void actualizar_clasificacion(Pareja participantes[], int num_part);
 void actualizar_puntuaciones(Pareja participantes[], int num_part);
 void ordenar_por_puntos(Pareja participantes[], int num_part);
 int leer_parejas(Pareja participantes[]);
+int generar_enfrentamientos(Pareja participantes[], int num_part, Partido enfrentamientos[]);
+int ya_se_enfrentaron(Pareja pareja1, Pareja pareja2);
+void guardar_enfrentamientos(Partido enfrentamientos[], int num_enfrentamientos, Pareja participantes[]);
+void actualizar_historial(Pareja participantes[], Partido enfrentamientos[], int num_enfrentamientos);
+
 #endif

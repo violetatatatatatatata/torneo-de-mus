@@ -1,47 +1,34 @@
-# Compiladador y sus flags
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
+# Compilador
+CC = gcc
+# Opciones de compilación
+CFLAGS = -Wall -Wextra -std=c99 -I./srcs
+# Directorio de los archivos fuente
+SRC_DIR = srcs
+# Directorio de los archivos objeto y ejecutables
+BIN_DIR = bin
+# Directorio de los archivos de datos
+DATA_DIR = data
 
-# Libreria
-NAME = mus.a
+# Nombres de los ejecutables
+TARGET_GENERAR_PAREJAS = generar_parejas
 
-# Lista de funciones a compilar
-FUNCTIONS = rondaInicial.c
-# Objectos
-OBJS = $(FUNCTIONS:%.c=%.o)
+# Archivos fuente
+SRC_GENERAR_PAREJAS = $(SRC_DIR)/generar_parejas.c
 
-# Default target
-all: $(NAME)
+# Regla para compilar todo
+all: $(BIN_DIR)/$(TARGET_GENERAR_PAREJAS)
 
-# Rule to create the static library
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $^
+# Crear la carpeta bin y data si no existen
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
 
-# Rule to compile .c files into .o files
-$(OBJS): %.o: %.c mus.h Makefile
-	$(CC) -c $(CFLAGS) $< -o $@
+$(DATA_DIR):
+	mkdir -p $(DATA_DIR)
 
-$(BOBJS): %.o: %.c mus.h
-	$(CC) -c $(CFLAGS) $< -o $@
+# Regla para compilar generar_parejas
+$(BIN_DIR)/$(TARGET_GENERAR_PAREJAS): $(SRC_GENERAR_PAREJAS) $(SRC_DIR)/torneo_mus.h | $(BIN_DIR) $(DATA_DIR)
+	$(CC) $(CFLAGS) -o $@ $(SRC_GENERAR_PAREJAS)
 
-# Rule to run Valgrind for memory leak checks
-valgrind: $(NAME)
-	valgrind --leak-check=full --track-fds=yes ./$(NAME)
-
-# Clean up the object files
+# Regla para limpiar los archivos compilados
 clean:
-	rm -f $(OBJS)
-
-# Clean up the object files and the library
-fclean: clean
-	rm -f $(NAME)
-
-# Rebuild the library from scratch
-re: fclean all
-
-# Print the list of functions (for debugging purposes)
-info:
-	$(info $(FUNCTIONS))
-
-# Declare these rules as phony (they are not actual files)
-.PHONY: all clean fclean re info valgrind
+	rm -f $(BIN_DIR)/$(TARGET_GENERAR_PAREJAS)
