@@ -29,7 +29,7 @@ void generar_clasificacion() {
 		linea[strcspn(linea, "\n")] = '\0';
 
 		// Escribir la línea original y añadir espacio para la clasificación
-		fprintf(clasificacion, "%s [  -  ]\n", linea);
+		fprintf(clasificacion, "%s\t\t\t[  -  ]\n", linea);
 	}
 
 	// Cerrar archivos

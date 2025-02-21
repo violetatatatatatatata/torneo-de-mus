@@ -49,11 +49,8 @@ int main(void)
  * Lee los participantes desde el archivo y los almacena en un array.
  * Maneja nombres con espacios.
  */
-/**
- * Lee los participantes desde el archivo y los almacena en un array.
- * Maneja nombres con espacios.
- */
-int leer_participantes(FILE *f, Pareja participantes[], int *num_part) {
+int leer_participantes(FILE *f, Pareja participantes[], int *num_part)
+{
     char linea[BUFFER_SIZE];
 
     // Leer los participantes
@@ -74,7 +71,6 @@ int leer_participantes(FILE *f, Pareja participantes[], int *num_part) {
         // Copiar el nombre completo
         strncpy(participantes[*num_part].nombre, linea, MAX_NOMBRE - 1);
         participantes[*num_part].nombre[MAX_NOMBRE - 1] = '\0'; // Asegurar terminación nula
-
         participantes[*num_part].id = *num_part;
         participantes[*num_part].puntos = 0;
         participantes[*num_part].diferencia_juego = 0;
@@ -105,7 +101,7 @@ void generar_parejas(Pareja participantes[], FILE *new_f, int num_part)
 
 	mezclar_indices(indices, num_part);
 	for (int i = 0; i < num_part; i += 2) {
-		fprintf(new_f, "%s - %s\n", participantes[indices[i]].nombre,
+		fprintf(new_f, "%s\t-\t%s\n", participantes[indices[i]].nombre,
 				participantes[indices[i + 1]].nombre);
 	}
 }
