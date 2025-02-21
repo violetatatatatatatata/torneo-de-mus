@@ -26,7 +26,7 @@ void generar_clasificacion() {
 	// Leer cada línea de parejas.txt y escribir en clasificacion.txt con espacio para clasificación
 	while (fgets(linea, sizeof(linea), parejas) != NULL) {
 		// Escribir la línea original y añadir espacio para la clasificación
-		fprintf(clasificacion, "%s [ ]\n", linea);
+		fprintf(clasificacion, "%s [  -  ]\n", linea);
 	}
 
 	// Cerrar archivos

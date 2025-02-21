@@ -1,5 +1,48 @@
 #include "mus.h"
 
+int main() {
+	Pareja participantes[MAX_PAREJAS];
+	int num_part = leer_parejas(participantes);
+
+	// Leer los participantes y sus puntuaciones
+	actualizar_puntuaciones(participantes, num_part);
+
+	// Actualizar la clasificación
+	actualizar_clasificacion(participantes, num_part);
+
+	return 0;
+}
+
+int leer_parejas(Pareja participantes[]) {
+	FILE *clasificacion;
+	char linea[BUFFER_SIZE];
+	int num_part = 0;
+
+	clasificacion = fopen("clasificacion.txt", "r");
+	if (clasificacion == NULL) {
+		printf("Error al abrir 'clasificacion.txt'.\n");
+		return 0;
+	}
+
+	// Leer cada línea y extraer los nombres de las parejas
+	while (fgets(linea, sizeof(linea), clasificacion) != NULL && num_part < MAX_PAREJAS) {
+		// Leer nombres de la pareja, ignorando los puntos y el formato [ x - y ]
+		if (sscanf(linea, "%[^-] - %[^[]", participantes[num_part].nombre, participantes[num_part + 1].nombre) == 2) {
+			// Limpiar espacios al final de los nombres
+			participantes[num_part].nombre[strcspn(participantes[num_part].nombre, "\n")] = '\0';
+			participantes[num_part + 1].nombre[strcspn(participantes[num_part + 1].nombre, "\n")] = '\0';
+			participantes[num_part].puntos = 0;
+			participantes[num_part].diferencia_juego = 0;
+			participantes[num_part + 1].puntos = 0;
+			participantes[num_part + 1].diferencia_juego = 0;
+			num_part += 2;
+		}
+	}
+
+	fclose(clasificacion);
+	return num_part;
+}
+
 void actualizar_puntuaciones(Pareja participantes[], int num_part) {
 	FILE *clasificacion;
 	char linea[BUFFER_SIZE];

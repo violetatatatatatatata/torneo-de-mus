@@ -40,5 +40,8 @@ int leer_participantes(FILE *f, Pareja participantes[], int *num_part);
 void generar_parejas(Pareja participantes[], FILE *new_f, int num_part);
 void mezclar_indices(int indices[], int num_part);
 void generar_clasificacion();
-
+void actualizar_clasificacion(Pareja participantes[], int num_part);
+void actualizar_puntuaciones(Pareja participantes[], int num_part);
+void ordenar_por_puntos(Pareja participantes[], int num_part);
+int leer_parejas(Pareja participantes[]);
 #endif
