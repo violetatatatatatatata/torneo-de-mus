@@ -1,2 +1,4 @@
-miau miau	-	Pepito Jimenez [  -  ]
-pqaqpap papa	-	mamam a [  -  ]
+mamam - Puntos: 1 - Diferencia: 2
+Pepito - Puntos: 1 - Diferencia: 1
+miau - Puntos: 0 - Diferencia: -1
+pqaqpap - Puntos: 0 - Diferencia: -2
