@@ -11,17 +11,17 @@ DATA_DIR = data
 
 # Nombres de los ejecutables
 TARGET_GENERAR_PAREJAS = generar_parejas
-TARGET_GENERAR_CLASIFICACION = generar_clasificacion
+TARGET_GENERAR_PUNTUACIONES = generar_puntuaciones
 TARGET_ACTUALIZAR_CLASIFICACION = actualizar_clasificacion
 
 # Archivos fuente
 SRC_GENERAR_PAREJAS = $(SRC_DIR)/generar_parejas.c
-SRC_GENERAR_CLASIFICACION = $(SRC_DIR)/generar_clasificacion.c
+SRC_GENERAR_PUNTUACIONES = $(SRC_DIR)/generar_puntuaciones.c
 SRC_ACTUALIZAR_CLASIFICACION = $(SRC_DIR)/actualizar_clasificacion.c
 
 # Regla para compilar todo
 all:	$(BIN_DIR)/$(TARGET_GENERAR_PAREJAS) \
-	$(BIN_DIR)/$(TARGET_GENERAR_CLASIFICACION) \
+	$(BIN_DIR)/$(TARGET_GENERAR_PUNTUACIONES) \
 	$(BIN_DIR)/$(TARGET_ACTUALIZAR_CLASIFICACION)
 
 # Crear la carpeta bin y data si no existen
@@ -37,8 +37,8 @@ $(BIN_DIR)/$(TARGET_GENERAR_PAREJAS): $(SRC_GENERAR_PAREJAS) $(SRC_DIR)/torneo_m
 	$(CC) $(CFLAGS) -o $@ $(SRC_GENERAR_PAREJAS)
 
 # Regla para compilar generar_clasificacion
-$(BIN_DIR)/$(TARGET_GENERAR_CLASIFICACION): $(SRC_GENERAR_CLASIFICACION) $(SRC_DIR)/torneo_mus.h | $(BIN_DIR) $(DATA_DIR)
-	$(CC) $(CFLAGS) -o $@ $(SRC_GENERAR_CLASIFICACION)
+$(BIN_DIR)/$(TARGET_GENERAR_PUNTUACIONES): $(SRC_GENERAR_PUNTUACIONES) $(SRC_DIR)/torneo_mus.h | $(BIN_DIR) $(DATA_DIR)
+	$(CC) $(CFLAGS) -o $@ $(SRC_GENERAR_PUNTUACIONES)
 
 # Regla para compilar actualizar_clasificacion
 $(BIN_DIR)/$(TARGET_ACTUALIZAR_CLASIFICACION): $(SRC_ACTUALIZAR_CLASIFICACION) $(SRC_DIR)/torneo_mus.h | $(BIN_DIR) $(DATA_DIR)
@@ -46,6 +46,7 @@ $(BIN_DIR)/$(TARGET_ACTUALIZAR_CLASIFICACION): $(SRC_ACTUALIZAR_CLASIFICACION) $
 
 # Regla para limpiar los archivos compilados
 clean:
-	rm -rf $(BIN_DIR)/$(TARGET_GENERAR_PAREJAS) \
-	$(BIN_DIR)/$(TARGET_GENERAR_CLASIFICACION) \
-	$(BIN_DIR)/$(TARGET_ACTUALIZAR_CLASIFICACION)
+	rm -f $(BIN_DIR)/$(TARGET_GENERAR_PAREJAS) \
+	      $(BIN_DIR)/$(TARGET_GENERAR_PUNTUACIONES) \
+	      $(BIN_DIR)/$(TARGET_ACTUALIZAR_CLASIFICACION) \
+	      data/parejas.txt data/clasificacion.txt data/puntuaciones.txt data/enfrentamientos.txt
