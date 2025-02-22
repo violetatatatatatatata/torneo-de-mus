@@ -6,7 +6,7 @@ Este es un programa en C que implementa un sistema de torneo de Mus basado en el
 ```
 ├── srcs/                     # Código fuente
 │   ├── generar_parejas.c     # Genera las parejas iniciales aleatorias
-│   ├── generar_clasificacion.c # Crea la clasificación inicial
+│   ├── generar_puntuaciones.c # Genera la puntuación de los participantes
 │   ├── actualizar_clasificacion.c # Actualiza la clasificación tras cada ronda
 │   ├── torneo_mus.h          # Archivo de cabecera con estructuras y funciones
 ├── data/                     # Archivos de datos
@@ -14,11 +14,15 @@ Este es un programa en C que implementa un sistema de torneo de Mus basado en el
 │   ├── parejas.txt           # Archivo generado con las parejas
 │   ├── clasificacion.txt     # Archivo con la clasificación actualizada
 │   ├── enfrentamientos.txt   # Archivo con los emparejamientos de cada ronda
+│   ├── puntuaciones.txt      # Archivo con las puntuaciones de cada pareja
+│   ├── ranking.txt           # Archivo con el ranking general
+├── bin/                      # Directorio donde se generan los ejecutables
 ├── Makefile                  # Archivo para compilar el proyecto
 ├── README.md                 # Este archivo
 ```
 
-## Cómo Usar
+##  Cómo Usar
+
 ###  Compilación del Proyecto
 Para compilar todos los archivos, ejecuta:
 ```sh
@@ -27,19 +31,19 @@ make
 Esto generará los ejecutables en el directorio `bin/`.
 
 ###  Uso del Programa
-#### **Generar parejas**
+####  **Generar parejas**
 ```sh
 ./bin/generar_parejas
 ```
 Genera parejas aleatorias a partir de `data/participantes.txt`.
 
-#### **Generar clasificación inicial**
+####  **Generar puntuaciones iniciales**
 ```sh
-./bin/generar_clasificacion
+./bin/generar_puntuaciones
 ```
-Crea `data/clasificacion.txt` con la lista de parejas sin puntuación inicial.
+Genera el archivo `data/puntuaciones.txt` con la estructura de puntuación vacía.
 
-#### **Actualizar clasificación tras una ronda**
+####  **Actualizar clasificación tras una ronda**
 ```sh
 ./bin/actualizar_clasificacion
 ```
@@ -47,28 +51,27 @@ Actualiza la clasificación según los resultados de la última ronda y genera n
 
 ##  Notas Importantes
 - **El archivo `data/participantes.txt` debe contener un número par de participantes.**
-- **Los archivos generados (`parejas.txt`, `clasificacion.txt`, `enfrentamientos.txt`) se sobrescriben en cada ejecución.**
-- **Si se usa el suizo condicionado, se debe modificar el código para evitar enfrentamientos repetidos.**
+- **Los archivos generados (`parejas.txt`, `clasificacion.txt`, `enfrentamientos.txt`, `puntuaciones.txt`, `ranking.txt`) se sobrescriben en cada ejecución.**
 
 ## Mejoras Futuras
 - Implementar una interfaz gráfica para la gestión del torneo.
-- Incluir una opción para hacer suizo condicionado automáticamente.
+- Generar reportes detallados con el historial de partidas y estadísticas de cada jugador.
 
-## ALGORITMO DEL PROGRAMA ! 
+##  Algoritmo del Programa
 
-Generación de parejas:
-	Se leen los participantes desde un archivo y se asignan parejas aleatoriamente.
-	Se aseguran de que haya un número par de participantes.
-	Se almacenan las parejas en un archivo.
+###  Generación de parejas:
+1. Se leen los participantes desde un archivo y se asignan parejas aleatoriamente.
+2. Se aseguran de que haya un número par de participantes.
+3. Se almacenan las parejas en un archivo.
 
-Clasificación:
-	Se genera una clasificación inicial con espacio para los puntos.
-	Se actualizan los puntos después de cada ronda.
-	Se ordenan las parejas por puntos y diferencia de juego.
-	Se guarda la clasificación en un archivo.
+###  Puntuaciones y Clasificación:
+1. Se genera un archivo de puntuaciones inicial vacío.
+2. Se actualizan los puntos después de cada ronda.
+3. Se ordenan las parejas por puntos y diferencia de juego.
+4. Se guarda la clasificación en un archivo.
 
-Enfrentamientos:
-	Se ordenan las parejas por puntos.
-	Se emparejan para la siguiente ronda según su clasificación.
-	Se evita que jueguen contra el mismo rival si ya se enfrentaron.
-	Se guardan los enfrentamientos en un archivo.
+###  Enfrentamientos:
+1. Se ordenan las parejas por puntos.
+2. Se emparejan para la siguiente ronda según su clasificación.
+3. Se evita que jueguen contra el mismo rival si ya se enfrentaron.
+4. Se guardan los enfrentamientos en un archivo.
